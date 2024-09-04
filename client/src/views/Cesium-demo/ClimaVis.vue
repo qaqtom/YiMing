@@ -42,7 +42,7 @@ import Panel from '@/components/Panel.vue'
 import { useClimateStore } from '@/stores/climateStore/index'
 import { ref,onBeforeUnmount,onMounted, watch} from 'vue'
 import { useViewerStore } from '@/stores/cesiumStore/index'
-import { storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 import type { Viewer } from 'cesium'
 import HightCode from '@/components/Code/Code.vue';
 type Arrayable<T> = T | T[]
@@ -53,10 +53,10 @@ const viewerStore = useViewerStore()
 // const viewer: Viewer = viewerStore.viewer as unknown as Viewer
 const { viewer } = storeToRefs(viewerStore)
 
-const rainValue = ref(data.find((climate) => climate.name === '雨')?.value)
-const snowValue = ref(data.find((climate) => climate.name === '雪')?.value)
-const fogValue = ref(data.find((climate) => climate.name === '雾')?.value)
-const globalLight = ref(data.find((climate) => climate.name === '全球光照')?.value)
+const rainValue = ref<number>(Number(data.find((climate) => climate.name === '雨')?.value));
+const snowValue = ref<number>(Number(data.find((climate) => climate.name === '雪')?.value));  
+const fogValue = ref<number>(Number(data.find((climate) => climate.name === '雾')?.value));  
+const globalLight = ref<boolean>(Boolean(data.find((climate) => climate.name === '全球光照')?.value));
 
 const updateRain = (value: Arrayable<number>) => {
     climateStore.updateRain(viewer.value as Viewer, value as number)
@@ -112,7 +112,6 @@ const code = `
                 <div class="item">
                     <div class="index">4</div>
                     <div class="name">启动太阳光照</div>
-                    <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
                     <el-switch v-model="globalLight" @change="updateGlobalIllumination" />
                 </div>
             </div>
@@ -136,10 +135,10 @@ const viewerStore = useViewerStore()
 // const viewer: Viewer = viewerStore.viewer as unknown as Viewer
 const { viewer } = storeToRefs(viewerStore)
 
-const rainValue = ref(data.find((climate) => climate.name === '雨')?.value)
-const snowValue = ref(data.find((climate) => climate.name === '雪')?.value)
-const fogValue = ref(data.find((climate) => climate.name === '雾')?.value)
-const globalLight = ref(data.find((climate) => climate.name === '全球光照')?.value)
+const rainValue = ref<number>(Number(data.find((climate) => climate.name === '雨')?.value));
+const snowValue = ref<number>(Number(data.find((climate) => climate.name === '雪')?.value));  
+const fogValue = ref<number>(Number(data.find((climate) => climate.name === '雾')?.value));  
+const globalLight = ref<boolean>(Boolean(data.find((climate) => climate.name === '全球光照')?.value));
 
 const updateRain = (value: Arrayable<number>) => {
     climateStore.updateRain(viewer.value as Viewer, value as number)
@@ -163,6 +162,7 @@ onBeforeUnmount(()=>{
     fogValue.value && climateStore.updateFog(viewer.value as Viewer, 0)
     climateStore.updateGlobalIllumination(viewer.value as Viewer, false)
 })
+const code = "....."
 
 //---------------------------------仓库代码----------------------------------------------------
 import { defineStore } from 'pinia'
@@ -268,7 +268,7 @@ export const useClimateStore = defineStore('climate', {
 })
 
 
-//---------------------------------粒子代码(已封装成ts文件)----------------------------------------------------
+//---------------------------------粒子代码(已封装成ts文件)-----------------------------------
 import {
   Cartesian3,
   Matrix4,
@@ -302,7 +302,7 @@ export default function renderParticle({
     Cartesian3.normalize(particle.position, snowGravityScratch)
     Cartesian3.multiplyByScalar(
       snowGravityScratch, //要缩放的笛卡尔坐标
-      CesiumMath.randomBetween(-speed[0], -speed[1]), //要与之相乘的标量，负值代表例子位置下降，即例子从上往下落
+      CesiumMath.randomBetween(-speed[0], -speed[1]), 
       snowGravityScratch
     )
     Cartesian3.add(particle.position, snowGravityScratch, particle.position)
@@ -386,7 +386,7 @@ export interface IClimateState {
   fogStage: PostProcessStage | null,
 };
 
-const code = "....."
+
 `
 </script>
 

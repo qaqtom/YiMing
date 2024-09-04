@@ -15,7 +15,7 @@ const handleMenuClick = () => {
         <el-icon @click="handleMenuClick" class="menuClick">
           <i-ep-menu />
         </el-icon>
-        <span class="ziti">二三维展示工具</span>
+        <span class="ziti">GIS开源学习平台</span>
       </el-header>
       <el-container>
         <el-aside>

@@ -29,11 +29,11 @@ export const routes = [
         }
       },
       {
-        path: 'demo1',
-        component: () => import('@/views/Cesium-demo/demo1.vue'),
+        path: 'measure',
+        component: () => import('@/views/Cesium-demo/Measure.vue'),
         meta: {
           title: 'demo1',
-          activePath: '/cesium/demo1'
+          activePath: '/cesium/measure'
         }
       }
     ],
