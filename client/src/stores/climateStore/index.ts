@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import renderParticle from './particleSystem'
 import { PostProcessStage } from 'cesium'
-import { fogShader } from './glsl'
+import { fogShader, snowShader, rainShader } from './glsl'
 import type { Viewer } from 'cesium'
 import type { IClimateState } from './type'
 
@@ -13,10 +13,14 @@ export const useClimateStore = defineStore('climate', {
       { name: '雪', value: 0 },
       { name: '雾', value: 0 },
       { name: '全球光照', value: false },
+      { name: '雨_着色器', value: false },
+      { name: '雪_着色器', value: false },
     ],
     particleRain: null,
     particleSnow: null,
     fogStage: null,
+    snowStage: null,
+    rainStage: null,
   }),
   actions: {
     // 更新“雨”的值
@@ -97,5 +101,56 @@ export const useClimateStore = defineStore('climate', {
       globalIllumination!.value = value
       viewer.scene.globe.enableLighting = value;
     },
+
+    //着色器渲染雪
+    updateSnowShader(viewer: Viewer, value: boolean) {
+      const snow_shader = this.data.find((climate: any) => climate.name === '雪_着色器')
+      snow_shader!.value = value
+      if (value) {
+        this.snowStage = new PostProcessStage({
+          name: "snow",
+          //sampleMode:PostProcessStageSampleMode.LINEAR,
+          fragmentShader: snowShader,
+          uniforms: {
+            snowSize: () => {
+              return 0.02;
+            },
+            snowSpeed: () => {
+              return 60.0;
+            },
+          },
+        });
+        viewer.scene.postProcessStages.add(this.snowStage);
+      } else {
+        this.snowStage && viewer.scene.postProcessStages.remove(this.snowStage);
+        this.snowStage = null
+      }
+    },
+    updateRainShader(viewer: Viewer, value: boolean) {
+      const rain_shader = this.data.find((climate: any) => climate.name === '雨_着色器')
+      rain_shader!.value = value
+      if (value) {
+        this.rainStage = new PostProcessStage({
+          name: "rain",
+          //sampleMode:PostProcessStageSampleMode.LINEAR,
+          fragmentShader: rainShader,
+          uniforms: {
+            tiltAngle: () => {
+              return -0.5;
+            },
+            rainSize: () => {
+              return 0.5;
+            },
+            rainSpeed: () => {
+              return 120.0;
+            },
+          },
+        });
+        viewer.scene.postProcessStages.add(this.rainStage);
+      } else {
+        this.rainStage && viewer.scene.postProcessStages.remove(this.rainStage);
+        this.rainStage = null
+      }
+    }
   },
 })

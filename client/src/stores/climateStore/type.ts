@@ -20,4 +20,6 @@ export interface IClimateState {
   particleRain: ParticleSystem | null,
   particleSnow: ParticleSystem | null,
   fogStage: PostProcessStage | null,
+  snowStage: PostProcessStage | null,
+  rainStage: PostProcessStage | null,
 };

@@ -32,6 +32,22 @@
                         <el-switch v-model="globalLight" @change="updateGlobalIllumination" />
                     </div>
                 </div>
+                <div class="list">
+                    <div class="item">
+                        <div class="index">5</div>
+                        <div class="name">着色器渲染雪</div>
+                        <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
+                        <el-switch v-model="snowShader" @change="updateSnowShader" />
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="item">
+                        <div class="index">6</div>
+                        <div class="name">着色器渲染雨</div>
+                        <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
+                        <el-switch v-model="rainShader" @change="updateRainShader" />
+                    </div>
+                </div>
             </div>
         </Panel>
     </div>
@@ -57,6 +73,8 @@ const rainValue = ref<number>(Number(data.find((climate) => climate.name === '�
 const snowValue = ref<number>(Number(data.find((climate) => climate.name === '雪')?.value));  
 const fogValue = ref<number>(Number(data.find((climate) => climate.name === '雾')?.value));  
 const globalLight = ref<boolean>(Boolean(data.find((climate) => climate.name === '全球光照')?.value));
+const snowShader = ref<boolean>(Boolean(data.find((climate) => climate.name === '雪_着色器')?.value));
+const rainShader = ref<boolean>(Boolean(data.find((climate) => climate.name === '雨_着色器')?.value));
 
 const updateRain = (value: Arrayable<number>) => {
     climateStore.updateRain(viewer.value as Viewer, value as number)
@@ -74,11 +92,21 @@ const updateGlobalIllumination = (value:  boolean | string | number) => {
     climateStore.updateGlobalIllumination(viewer.value as Viewer, value as boolean)
 }
 
+const updateSnowShader = (value:  boolean | string | number) => {
+  climateStore.updateSnowShader(viewer.value as Viewer, value as boolean)
+}
+
+const updateRainShader = (value:  boolean | string | number) => {
+  climateStore.updateRainShader(viewer.value as Viewer, value as boolean)
+}
+
 onBeforeUnmount(()=>{
     climateStore.updateRain(viewer.value as Viewer, 0)
     climateStore.updateSnow(viewer.value as Viewer, 0)
     fogValue.value && climateStore.updateFog(viewer.value as Viewer, 0)
     climateStore.updateGlobalIllumination(viewer.value as Viewer, false)
+    climateStore.updateSnowShader(viewer.value as Viewer, false)
+    climateStore.updateRainShader(viewer.value as Viewer, false)
 })
 
 const code = `
@@ -112,7 +140,24 @@ const code = `
                 <div class="item">
                     <div class="index">4</div>
                     <div class="name">启动太阳光照</div>
+                    <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
                     <el-switch v-model="globalLight" @change="updateGlobalIllumination" />
+                </div>
+            </div>
+            <div class="list">
+                <div class="item">
+                    <div class="index">5</div>
+                    <div class="name">着色器渲染雪</div>
+                    <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
+                    <el-switch v-model="snowShader" @change="updateSnowShader" />
+                </div>
+            </div>
+            <div class="list">
+                <div class="item">
+                    <div class="index">6</div>
+                    <div class="name">着色器渲染雨</div>
+                    <!-- <el-slider v-model="fogValue" @change="updateFog" :min="0" :max="1" :step="0.1" /> -->
+                    <el-switch v-model="rainShader" @change="updateRainShader" />
                 </div>
             </div>
         </div>
@@ -124,7 +169,7 @@ import Panel from '@/components/Panel.vue'
 import { useClimateStore } from '@/stores/climateStore/index'
 import { ref,onBeforeUnmount,onMounted, watch} from 'vue'
 import { useViewerStore } from '@/stores/cesiumStore/index'
-import { storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 import type { Viewer } from 'cesium'
 import HightCode from '@/components/Code/Code.vue';
 type Arrayable<T> = T | T[]
@@ -139,6 +184,8 @@ const rainValue = ref<number>(Number(data.find((climate) => climate.name === '�
 const snowValue = ref<number>(Number(data.find((climate) => climate.name === '雪')?.value));  
 const fogValue = ref<number>(Number(data.find((climate) => climate.name === '雾')?.value));  
 const globalLight = ref<boolean>(Boolean(data.find((climate) => climate.name === '全球光照')?.value));
+const snowShader = ref<boolean>(Boolean(data.find((climate) => climate.name === '雪_着色器')?.value));
+const rainShader = ref<boolean>(Boolean(data.find((climate) => climate.name === '雨_着色器')?.value));
 
 const updateRain = (value: Arrayable<number>) => {
     climateStore.updateRain(viewer.value as Viewer, value as number)
@@ -156,11 +203,21 @@ const updateGlobalIllumination = (value:  boolean | string | number) => {
     climateStore.updateGlobalIllumination(viewer.value as Viewer, value as boolean)
 }
 
+const updateSnowShader = (value:  boolean | string | number) => {
+  climateStore.updateSnowShader(viewer.value as Viewer, value as boolean)
+}
+
+const updateRainShader = (value:  boolean | string | number) => {
+  climateStore.updateRainShader(viewer.value as Viewer, value as boolean)
+}
+
 onBeforeUnmount(()=>{
     climateStore.updateRain(viewer.value as Viewer, 0)
     climateStore.updateSnow(viewer.value as Viewer, 0)
     fogValue.value && climateStore.updateFog(viewer.value as Viewer, 0)
     climateStore.updateGlobalIllumination(viewer.value as Viewer, false)
+    climateStore.updateSnowShader(viewer.value as Viewer, false)
+    climateStore.updateRainShader(viewer.value as Viewer, false)
 })
 const code = "....."
 
@@ -168,7 +225,7 @@ const code = "....."
 import { defineStore } from 'pinia'
 import renderParticle from './particleSystem'
 import { PostProcessStage } from 'cesium'
-import { fogShader } from './glsl'
+import { fogShader, snowShader, rainShader } from './glsl'
 import type { Viewer } from 'cesium'
 import type { IClimateState } from './type'
 
@@ -180,10 +237,14 @@ export const useClimateStore = defineStore('climate', {
       { name: '雪', value: 0 },
       { name: '雾', value: 0 },
       { name: '全球光照', value: false },
+      { name: '雨_着色器', value: false },
+      { name: '雪_着色器', value: false },
     ],
     particleRain: null,
     particleSnow: null,
     fogStage: null,
+    snowStage: null,
+    rainStage: null,
   }),
   actions: {
     // 更新“雨”的值
@@ -264,6 +325,57 @@ export const useClimateStore = defineStore('climate', {
       globalIllumination!.value = value
       viewer.scene.globe.enableLighting = value;
     },
+
+    //着色器渲染雪
+    updateSnowShader(viewer: Viewer, value: boolean) {
+      const snow_shader = this.data.find((climate: any) => climate.name === '雪_着色器')
+      snow_shader!.value = value
+      if (value) {
+        this.snowStage = new PostProcessStage({
+          name: "snow",
+          //sampleMode:PostProcessStageSampleMode.LINEAR,
+          fragmentShader: snowShader,
+          uniforms: {
+            snowSize: () => {
+              return 0.02;
+            },
+            snowSpeed: () => {
+              return 60.0;
+            },
+          },
+        });
+        viewer.scene.postProcessStages.add(this.snowStage);
+      } else {
+        this.snowStage && viewer.scene.postProcessStages.remove(this.snowStage);
+        this.snowStage = null
+      }
+    },
+    updateRainShader(viewer: Viewer, value: boolean) {
+      const rain_shader = this.data.find((climate: any) => climate.name === '雨_着色器')
+      rain_shader!.value = value
+      if (value) {
+        this.rainStage = new PostProcessStage({
+          name: "rain",
+          //sampleMode:PostProcessStageSampleMode.LINEAR,
+          fragmentShader: rainShader,
+          uniforms: {
+            tiltAngle: () => {
+              return -0.5;
+            },
+            rainSize: () => {
+              return 0.5;
+            },
+            rainSpeed: () => {
+              return 120.0;
+            },
+          },
+        });
+        viewer.scene.postProcessStages.add(this.rainStage);
+      } else {
+        this.rainStage && viewer.scene.postProcessStages.remove(this.rainStage);
+        this.rainStage = null
+      }
+    }
   },
 })
 
@@ -336,8 +448,8 @@ export default function renderParticle({
 
   return particle
 }
-//---------------------------------着色器（雾）----------------------------------------------------
-export const fogShader = '
+//---------------------------------着色器---------------------------------------------------
+export const fogShader = /*glsl*/ '
 #version 300 es
 precision highp float;
 uniform sampler2D colorTexture;
@@ -361,6 +473,78 @@ void main(void)
   fragColor = mix(origcolor, fogcolor, f);
 }
 '
+
+export const snowShader = /*glsl*/ ' 
+    uniform sampler2D colorTexture;  
+    in vec2 v_textureCoordinates;  
+    uniform float snowSpeed;  
+    uniform float snowSize;  
+
+    float snow(vec2 uv, float scale) {  
+        float time = czm_frameNumber / snowSpeed;  
+        float w = smoothstep(1., 0., -uv.y * (scale / 10.));  
+        if (w < .1) return 0.;  
+        uv += time / scale;  
+        uv.y += time * 2. / scale;  
+        uv.x += sin(uv.y + time * .5) / scale;  
+        uv *= scale;  
+        vec2 s = floor(uv), f = fract(uv), p;  
+        float k = 3., d;  
+        p = .5 + .35 * sin(11. * fract(sin((s + p + scale) * mat2(7, 3, 6, 5)) * 5.)) - f;  
+        d = length(p);  
+        k = min(d, k);  
+        k = smoothstep(0., k, sin(f.x + f.y) * snowSize);  
+        return k * w;  
+    }  
+
+    out vec4 fragColor;  
+
+    void main(void) {  
+        vec2 resolution = czm_viewport.zw;  
+        vec2 uv = (gl_FragCoord.xy * 2. - resolution.xy) / min(resolution.x, resolution.y);  
+        vec3 finalColor = vec3(0.);  
+        float c = 0.;  
+        c += snow(uv, 30.) * .0;  
+        c += snow(uv, 20.) * .0;  
+        c += snow(uv, 15.) * .0;  
+        c += snow(uv, 10.);  
+        c += snow(uv, 8.);  
+        c += snow(uv, 6.);  
+        c += snow(uv, 5.);  
+        finalColor = (vec3(c));  
+        fragColor = mix(texture(colorTexture, v_textureCoordinates), vec4(finalColor, 1), .5);  
+    }  
+';  
+
+export const rainShader = /*glsl*/ '
+uniform sampler2D colorTexture;
+in vec2 v_textureCoordinates;
+uniform float tiltAngle;
+uniform float rainSize;
+uniform float rainSpeed;
+
+float hash(float x) {
+    return fract(sin(x * 133.3) * 13.13);
+}
+
+out vec4 fragColor;
+
+void main(void) {
+    float time = czm_frameNumber / rainSpeed;
+    vec2 resolution = czm_viewport.zw;
+    vec2 uv = (gl_FragCoord.xy * 2. - resolution.xy) / min(resolution.x, resolution.y);
+    vec3 c = vec3(.6, .7, .8);
+    float a = tiltAngle;
+    float si = sin(a), co = cos(a);
+    uv *= mat2(co, -si, si, co);
+    uv *= length(uv + vec2(0, 4.9)) * rainSize + 1.;
+    float v = 1. - sin(hash(floor(uv.x * 100.)) * 2.);
+    float b = clamp(abs(sin(20. * time * v + uv.y * (5. / (2. + v)))) - .95, 0., 1.) * 20.;
+    c *= v * b;
+    fragColor = mix(texture(colorTexture, v_textureCoordinates), vec4(c, 1), .5);
+}
+'
+
 //---------------------------------ts类型----------------------------------------------------
 import type { Viewer, Cartesian3, Cartesian2, ParticleSystem, PostProcessStage } from 'cesium'
 
@@ -384,9 +568,9 @@ export interface IClimateState {
   particleRain: ParticleSystem | null,
   particleSnow: ParticleSystem | null,
   fogStage: PostProcessStage | null,
+  snowStage: PostProcessStage | null,
+  rainStage: PostProcessStage | null,
 };
-
-
 `
 </script>
 

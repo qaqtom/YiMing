@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both
+        }
+
+        .container {
+            width: 90%;
+            background: green;
+            margin: 0 auto;
+        }
+
+        .aside {
+            width: 20%;
+            background: gray;
+            float: left;
+            /* margin-right: 30px; */
+        }
+
+        .main {
+            background: #008c8c;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container clearfix">
+        <aside class="aside">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dolor nobis aspernatur
+            distinctio esse architecto iste repudiandae veritatis eius nihil, quis deserunt neque cumque sit, nam magnam
+            deleniti tempore quos delectus fuga consequuntur officiis dolorum tenetur ad! Cum doloribus earum soluta
+            officiis nesciunt! Culpa aspernatur, dolore rem aperiam sequi expedita quos commodi veniam beatae inventore.
+            Nulla accusamus maxime eaque quaerat odit incidunt quas, at tempore quae vero harum voluptas nemo similique
+            alias impedit a nisi culpa corporis ut quam atque! Minima rem, dicta ad aut repellat error esse maxime,
+            explicabo ipsam veniam tempore! Corporis velit provident dignissimos temporibus nobis dolores.</aside>
+        <div class="main">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt distinctio eius voluptatum
+            corporis magni fugiat reprehenderit quis accusantium perspiciatis eligendi beatae cupiditate doloremque id,
+            dignissimos eos repellendus facere inventore provident sit ratione nihil ad repellat. Debitis itaque
+            architecto esse. Ex voluptate distinctio placeat quaerat, ab soluta a numquam odio, maiores, modi
+            perspiciatis dolorem. Corrupti quo laudantium labore doloremque possimus quae at eius voluptatum
+            perspiciatis nisi ullam autem necessitatibus rem nesciunt, consequatur, cum cumque, eligendi nihil?
+            Excepturi modi dolorum cumque perferendis provident, eum incidunt dolorem cum repellendus. Qui laborum
+            ipsum, autem dolor similique sit corporis commodi, modi, adipisci explicabo officia repellat?</div>
+    </div>
+</body>
+
+</html>
