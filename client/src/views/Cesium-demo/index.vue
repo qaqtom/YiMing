@@ -1,5 +1,4 @@
 <template>
-
     <div class="mainContainer">
         <div class="code">
             <router-view /> <!-- 渲染子路由 -->
@@ -72,17 +71,17 @@ const init = async () => {
     viewerStore.initViewer(viewer)
 
     // 监听点击事件，拾取坐标
-  const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
-  handler.setInputAction((e) => {
-    const clickPosition = viewer.scene.camera.pickEllipsoid(e.position);
-    const randiansPos = Cartographic.fromCartesian(clickPosition);
-    console.log(
-      "经度：" +
-        cesiumMath.toDegrees(randiansPos.longitude) +
-        ", 纬度：" +
-        cesiumMath.toDegrees(randiansPos.latitude)
-    );
-  }, ScreenSpaceEventType.LEFT_CLICK);
+//   const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
+//   handler.setInputAction((e) => {
+//     const clickPosition = viewer.scene.camera.pickEllipsoid(e.position);
+//     const randiansPos = Cartographic.fromCartesian(clickPosition);
+//     console.log(
+//       "经度：" +
+//         cesiumMath.toDegrees(randiansPos.longitude) +
+//         ", 纬度：" +
+//         cesiumMath.toDegrees(randiansPos.latitude)
+//     );
+//   }, ScreenSpaceEventType.LEFT_CLICK);
 }
 </script>
 

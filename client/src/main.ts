@@ -17,10 +17,11 @@ import 'highlight.js/lib/common'
 import hljsVuePlugin from '@highlightjs/vue-plugin'
 
 
+
+
 const app = createApp(App)
 // app.component("hljsVuePlugin", hljsVuePlugin);//全局注册
 app.use(hljsVuePlugin)
 app.use(createPinia())
 app.use(router)
-
 app.mount('#app')

@@ -110,7 +110,7 @@ onBeforeUnmount(()=>{
 })
 
 const code = `
-//---------------------------------vue模板代码----------------------------------------------------
+---------------------------------vue模板代码----------------------------------------------------
 <HightCode :code/>
 <div class="climateContainer">
     <Panel size="medium" title="气候模拟">
@@ -164,7 +164,7 @@ const code = `
     </Panel>
 </div>
 
-//---------------------------------typescript代码----------------------------------------------------
+---------------------------------typescript代码----------------------------------------------------
 import Panel from '@/components/Panel.vue'
 import { useClimateStore } from '@/stores/climateStore/index'
 import { ref,onBeforeUnmount,onMounted, watch} from 'vue'
@@ -221,7 +221,7 @@ onBeforeUnmount(()=>{
 })
 const code = "....."
 
-//---------------------------------仓库代码----------------------------------------------------
+---------------------------------仓库代码----------------------------------------------------
 import { defineStore } from 'pinia'
 import renderParticle from './particleSystem'
 import { PostProcessStage } from 'cesium'
@@ -380,7 +380,7 @@ export const useClimateStore = defineStore('climate', {
 })
 
 
-//---------------------------------粒子代码(已封装成ts文件)-----------------------------------
+---------------------------------粒子代码(已封装成ts文件)-----------------------------------
 import {
   Cartesian3,
   Matrix4,
@@ -448,7 +448,7 @@ export default function renderParticle({
 
   return particle
 }
-//---------------------------------着色器---------------------------------------------------
+---------------------------------着色器---------------------------------------------------
 export const fogShader = /*glsl*/ '
 #version 300 es
 precision highp float;
@@ -545,7 +545,7 @@ void main(void) {
 }
 '
 
-//---------------------------------ts类型----------------------------------------------------
+---------------------------------ts类型----------------------------------------------------
 import type { Viewer, Cartesian3, Cartesian2, ParticleSystem, PostProcessStage } from 'cesium'
 
 export interface particleOptionType {
@@ -571,6 +571,56 @@ export interface IClimateState {
   snowStage: PostProcessStage | null,
   rainStage: PostProcessStage | null,
 };
+---------------------------------css代码----------------------------------------------------
+.climateContainer{
+    position:absolute;
+    right:0;
+    top:100px;
+    z-index:100;
+}
+.content {
+    padding: 20px;
+}
+
+.sub-title {
+    color: #ffffff;
+    background-color: #043272;
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        cursor: pointer;
+        /* 设置光标为指针 */
+
+        .index {
+            width: 21px;
+            height: 21px;
+            padding: 0 4px;
+            background-color: rgba(255, 119, 52, 0.5);
+            border: 1px solid rgba(255, 119, 52, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            flex: 0;
+        }
+
+        .name {
+            color: #ffffff;
+            font-size: 16px;
+        }
+    }
+}
 `
 </script>
 

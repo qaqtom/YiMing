@@ -1,25 +1,28 @@
 import type { Viewer } from "cesium";
 import { defineStore } from "pinia";
-import { EllipsoidTerrainProvider, Cartesian3,Math as CesiumMath } from 'cesium'
+import { EllipsoidTerrainProvider, Cartesian3, Math as CesiumMath } from 'cesium'
 import MeasureTool from './measure.js'
 interface measureType {
     data: {
         name: string;
-        value: number | boolean;
-    } [],
+        value: boolean;
+    }[],
+    measure: any
 }
 
 export const useMeasureStore = defineStore('measure', {
     state: (): measureType => ({
         data: [
-            { name: '雨', value: 0 },
-            { name: '雪', value: 0 },
-            { name: '雾', value: 0 },
-            { name: '全球光照', value: false },
+            { name: '空间距离', value: false },
+            { name: '空间面积', value: false },
         ],
+        measure: null
     }),
     actions: {
         init(viewer: Viewer) {
+            if (!viewer) {
+                return
+            }
             viewer.scene.terrainProvider = new EllipsoidTerrainProvider({});
             const position = Cartesian3.fromDegrees(
                 120.17118065585795,
@@ -35,12 +38,38 @@ export const useMeasureStore = defineStore('measure', {
                 },
                 duration: 2.0, // 飞行持续时间，单位：秒
             });
-            const measure = new MeasureTool(viewer);
-
-            
+            this.measure = new MeasureTool(viewer);
+        },
+        updateDistance(e: boolean) {
+            this.data[0].value = e
+            if (e) {
+                if (this.data[1].value) {
+                    this.destroy()
+                }
+                this.measure.drawLineMeasureGraphics({
+                    clampToGround: true,
+                    callback: () => { },
+                });
+            } else {
+                this.destroy()
+            }
+        },
+        updateArea(e: boolean) {
+            this.data[1].value = e
+            if (e) {
+                if (this.data[0].value) {
+                    this.destroy()
+                }
+                this.measure.drawAreaMeasureGraphics({
+                    clampToGround: true,
+                    callback: () => { },
+                });
+            } else {
+                this.destroy()
+            }
         },
         destroy() {
-            
+            this.measure && this.measure._drawLayer.entities.removeAll();
         },
     }
 })

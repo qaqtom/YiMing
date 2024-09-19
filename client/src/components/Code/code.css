@@ -12,7 +12,9 @@
     background: #21252b;
     box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
     overflow-y: auto; /* 允许垂直滚动 */  
+    overflow-x: auto; /* 允许垂直滚动 */  
     max-height: 100%; /* 设置最大高度，根据需要调整 */
+    max-width: 800px;
     box-sizing: border-box;
     transition: max-width 0.3s ease, padding 0.3s ease;
 }

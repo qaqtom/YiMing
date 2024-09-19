@@ -4,6 +4,7 @@ import { PostProcessStage } from 'cesium'
 import { fogShader, snowShader, rainShader } from './glsl'
 import type { Viewer } from 'cesium'
 import type { IClimateState } from './type'
+import url from '@/baseURL'
 
 export const useClimateStore = defineStore('climate', {
   state: (): IClimateState => ({
@@ -40,7 +41,7 @@ export const useClimateStore = defineStore('climate', {
         //没有值，初始化
         this.particleRain = renderParticle({
           viewer,
-          url: '/materials/雨滴.png',
+          url: `${url}/materials/雨滴.png`,
           speed: [50, 100],
           emissionRate: value,
           fly: Boolean(value)
@@ -62,7 +63,7 @@ export const useClimateStore = defineStore('climate', {
       } else {
         this.particleSnow = renderParticle({
           viewer,
-          url: "/materials/雪花.png",
+          url: `${url}/materials/雪花.png`,
           speed: [1, 10],
           emissionRate: value,
           fly: Boolean(value)

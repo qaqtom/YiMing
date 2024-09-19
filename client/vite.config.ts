@@ -16,6 +16,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     vue(),
     cesium(),
@@ -23,19 +24,19 @@ export default defineConfig({
       resolvers: [
         ElementPlusResolver(),
         //自动导入图标组件
-        IconsResolver({prefix:'Icon'}),
+        IconsResolver({ prefix: 'Icon' }),
       ]
     }),
     Components({
       resolvers: [
         //自动注册图标组件
-        IconsResolver({enabledCollections:['ep']}),
+        IconsResolver({ enabledCollections: ['ep'] }),
         ElementPlusResolver()
       ]
     }),
 
     Icons({
-      autoInstall:true
+      autoInstall: true
     })
   ],
   css: {

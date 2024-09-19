@@ -13,12 +13,16 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@highlightjs/vue-plugin": "^2.1.0",
+    "axios": "^1.7.7",
+    "d3": "^7.9.0",
+    "echarts": "^5.5.0",
     "element-plus": "^2.8.1",
     "highlight.js": "^11.10.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
+    "vue-echarts": "^6.6.9",
     "vue-router": "^4.3.3"
   },
   "devDependencies": {

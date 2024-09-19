@@ -30,7 +30,7 @@ const toggleCode = () => {
     } else {
         // 需要显示
         // panelWrapper.value!.style.display = 'flex'
-        panelWrapper.value!.style.maxWidth = '100%'; // 设置为一个足够大的值  
+        panelWrapper.value!.style.maxWidth = '800px'; // 设置为一个足够大的值  
         panelWrapper.value!.style.padding = '30px 10px 2px 0'; // 恢复padding  
         panelState.value = true;
     }

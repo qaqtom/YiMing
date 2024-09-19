@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
 import ThreejsIndex from '../views/Threejs-demo/index.vue'
 import ThreejsDemo1 from '../views/Threejs-demo/demo1.vue'
@@ -32,10 +32,50 @@ export const routes = [
         path: 'measure',
         component: () => import('@/views/Cesium-demo/Measure.vue'),
         meta: {
-          title: 'demo1',
+          title: '测量',
           activePath: '/cesium/measure'
         }
-      }
+      },
+      {
+        path: 'geoJsonRender',
+        component: () => import('@/views/Cesium-demo/GeoJsonRender.vue'),
+        meta: {
+          title: 'geojson渲染',
+          activePath: '/cesium/geoJsonRender'
+        }
+      },
+      {
+        path: 'tilesLoader',
+        component: () => import('@/views/Cesium-demo/TilesLoader.vue'),
+        meta: {
+          title: 'WTMS瓦片加载',
+          activePath: '/cesium/tilesLoader'
+        }
+      },
+      {
+        path: 'pngRender',
+        component: () => import('@/views/Cesium-demo/pngRender.vue'),
+        meta: {
+          title: 'png拉伸渲染',
+          activePath: '/cesium/pngRender'
+        }
+      },
+      {
+        path: 'echartsAndTiles',
+        component: () => import('@/views/Cesium-demo/EchartsAndTiles.vue'),
+        meta: {
+          title: '数据联动',
+          activePath: '/cesium/echartsAndTiles'
+        }
+      },
+      {
+        path: 'water',
+        component: () => import('@/views/Cesium-demo/Water.vue'),
+        meta: {
+          title: '水面渲染',
+          activePath: '/cesium/water'
+        }
+      },
     ],
   },
   {
@@ -68,7 +108,7 @@ export const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes
 })
 
