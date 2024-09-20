@@ -106,6 +106,7 @@ const init = async () => {
     /* 使用 flex 布局 */
     height: 100%;
     /* 使其占据整个视口高度 */
+    overflow: hidden;
 }
 
 .code {

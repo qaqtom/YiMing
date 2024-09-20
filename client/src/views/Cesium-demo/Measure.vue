@@ -40,6 +40,9 @@ let area = ref(data[1].value)
 watch(viewer, () => {
     measureStore.init(viewer.value as Viewer) 
 })
+if (viewer.value) {
+    measureStore.init(viewer.value as Viewer) 
+}
 
 const updateDistance = (e: boolean | string | number) => {
     measureStore.updateArea(false)
